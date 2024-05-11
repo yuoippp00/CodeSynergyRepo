@@ -1,22 +1,16 @@
-function minStack() {
-  this.stack = [];
-  this.minStack = [];
+function minDepth(root) {
+  if (!root) return 0;
+  const queue = [root];
+  let depth = 1;
+  while (queue.length) {
+    const size = queue.length;
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      if (!node.left && !node.right) return depth;
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    depth++;
+  }
+  return depth;
 }
-minStack.prototype.push = function (x) {
-  this.stack.push(x);
-  if (
-    this.minStack.length === 0 ||
-    x <= this.minStack[this.minStack.length - 1]
-  )
-    this.minStack.push(x);
-};
-minStack.prototype.pop = function () {
-  if (this.stack.pop() === this.minStack[this.minStack.length - 1])
-    this.minStack.pop();
-};
-minStack.prototype.top = function () {
-  return this.stack[this.stack.length - 1];
-};
-minStack.prototype.getMin = function () {
-  return this.minStack[this.minStack.length - 1];
-};
