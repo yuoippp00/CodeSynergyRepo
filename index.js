@@ -1,16 +1,11 @@
-function minDepth(root) {
-  if (!root) return 0;
-  const queue = [root];
-  let depth = 1;
-  while (queue.length) {
-    const size = queue.length;
-    for (let i = 0; i < size; i++) {
-      const node = queue.shift();
-      if (!node.left && !node.right) return depth;
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+function generate(numRows) {
+  const triangle = [];
+  for (let i = 0; i < numRows; i++) {
+    const row = new Array(i + 1).fill(1);
+    for (let j = 1; j < row.length - 1; j++) {
+      row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
     }
-    depth++;
+    triangle.push(row);
   }
-  return depth;
+  return triangle;
 }
